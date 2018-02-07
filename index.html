@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Mutiple Labels Annotation</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <style>
+            .wrapper {
+                display: block;
+                width: 70%;
+                margin: 0 auto;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            .youtube {
+                background-color: #000;
+                margin-bottom: 30px;
+                padding-top: 56.25%;
+                position: relative;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .youtube img {
+                width: 100%;
+                left: 0;
+                top: -16.84%;
+                opacity: .7;
+            }
+
+            .youtube .play-button {
+                width: 90px;
+                height: 60px;
+                background-color: #333;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+                z-index: 1;
+                opacity: .8;
+                border-radius: 6px;
+            }
+
+            .youtube .play-button:before {
+                content: "";
+                border-style: solid;
+                border-width: 15px 0 15px 26px;
+                border-color: transparent transparent transparent #fff;
+            }
+
+            .youtube img,
+            .youtube .play-button {
+                cursor: pointer;
+            }
+            .youtube img,
+            .youtube iframe,
+            .youtube .play-button,
+            .youtube .play-button:before {
+                position: absolute;
+            }
+            .youtube .play-button,
+            .youtube .play-button:before {
+                top: 50%;
+                left: 50%;
+                transform: translate3d( -50%, -50%, 0 );
+            }
+            .youtube iframe {
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1 class="title">Multiple Labels Annotation</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="url">
+                        <form action="#">
+                            <div class="form-group">
+                                <label for="youtubeUrl">Enter Youtube Video ID here:</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="E.g.: 5v9p5jBN_Hg" name="youtubeId" id="youtubeId">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button" name="youtubeGoBtn" id="youtubeGoBtn">Go!</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="video-labels">
+                <div class="row">
+                    <div class="col">
+                        <!-- Video wrapper -->
+                        <div class="youtube">
+                            <div class="play-button"></div>
+                        </div>
+                        <div class="play-speed">
+                            <p>Play at:</p>
+                            <a class="btn btn-outline-primary" data-speed="1">1X</a> <a class="btn btn-outline-primary" data-speed="2">2X</a>
+                            <a class="btn btn-outline-primary" data-speed="5">5X</a> <a class="btn btn-outline-primary" data-speed="10">10X</a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="question">
+                            <h4>Which actions are presented in the video?</h4>
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input action-labels" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Long jump</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input action-labels" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">High jump</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input action-labels" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Running</label>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" name="submitAnswer">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Currently, we only show 1 youtube video
+            var youtube = document.querySelectorAll(".youtube")[0];
+            var youtubeId = document.querySelectorAll("#youtubeId")[0].value;
+            var loadYoutubeBtn = document.querySelectorAll("#youtubeGoBtn")[0];
+
+            // Load the youtube video when click on "Go"
+            loadYoutubeBtn.addEventListener("click", function() {
+                var iframe = document.createElement("iframe");
+
+                iframe.setAttribute("frameborder", "0");
+                iframe.setAttribute("allowfullscreen", "");
+                iframe.setAttribute("src", "https://www.youtube.com/embed/" + youtubeId + "?rel=0&autoplay=1");
+
+                youtube.innerHTML = "";
+                youtube.appendChild(iframe);
+            });
+        </script>
+    </body>
+</html>
