@@ -145,26 +145,36 @@
 
             // Currently, we only show 1 youtube video
             var youtube = document.querySelectorAll(".youtube")[0];
-            var youtubeId = document.getElementById("youtubeId").value;
             var loadYoutubeBtn = document.querySelectorAll("#youtubeGoBtn")[0];
             var speedBtns = document.getElementsByClassName("speed-btn");
-            var player, playbackRate = 3;
+            var youtubeId, player, playbackRate = 3;
 
             // Load the youtube video when click on "Go"
             loadYoutubeBtn.addEventListener("click", function() {
-                player = new YT.Player('youtube', {
-                    height: '320',
-                    width: '570',
-                    videoId: youtubeId,
-                    events: {
-                        'onReady': onPlayerReady
+                youtubeId = document.getElementById("youtubeId").value;
+                console.log(youtubeId);
+
+                if (player == null) {
+                    var onPlayerReady = function(event) {
+                        player.setPlaybackRate(playbackRate);
+                        event.target.playVideo();
                     }
-                });
-                
-                // 4. The API will call this function when the video player is ready.
-                function onPlayerReady(event) {
+
+                    console.log("Creating new player");
+                    player = new YT.Player('youtube', {
+                        height: '320',
+                        width: '570',
+                        videoId: youtubeId,
+                        events: {
+                            'onReady': onPlayerReady
+                        }
+                    });
+                } else {
+                    console.log("Playing video "+youtubeId);
+                    player.stopVideo();
+                    player.loadVideoById(youtubeId);
                     player.setPlaybackRate(playbackRate);
-                    event.target.playVideo();
+                    player.playVideo();
                 }
             });
 
